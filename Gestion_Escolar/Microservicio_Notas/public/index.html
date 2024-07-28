@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Notas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Gestión de Notas</h1>
+        <form id="notaForm" class="mb-4">
+            <input type="hidden" id="nota_id"> <!-- Hidden input for note ID -->
+            <div class="form-group">
+                <label for="estudiante_nombre">Nombre del Estudiante</label>
+                <input type="text" class="form-control" id="estudiante_nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="curso_nombre">Nombre del Curso</label>
+                <input type="text" class="form-control" id="curso_nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="nota">Nota</label>
+                <input type="number" class="form-control" id="nota" required>
+            </div>
+            <div class="form-group">
+                <label for="fecha_evaluacion">Fecha de Evaluación</label>
+                <input type="date" class="form-control" id="fecha_evaluacion" required>
+            </div>
+            <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <input type="text" class="form-control" id="descripcion">
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar Nota</button>
+        </form>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Estudiante ID</th>
+                    <th>Curso ID</th>
+                    <th>Nota</th>
+                    <th>Fecha de Evaluación</th>
+                    <th>Descripción</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="notaList"></tbody>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            let editingId = null;
+
+            const fetchNotas = () => {
+                $.ajax({
+                    url: '/InfoNotas/notas',
+                    type: 'GET',
+                    success: function(response) {
+                        const notaList = $('#notaList');
+                        notaList.empty();
+                        response.forEach(nota => {
+                            notaList.append(`
+                                <tr>
+                                    <td>${nota.id}</td>
+                                    <td>${nota.estudiante_id}</td>
+                                    <td>${nota.curso_id}</td>
+                                    <td>${nota.nota}</td>
+                                    <td>${nota.fecha_evaluacion}</td>
+                                    <td>${nota.descripcion}</td>
+                                    <td>
+                                        <button class="btn btn-info btn-sm" onclick="editNota(${nota.id})">Editar</button>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteNota(${nota.id})">Eliminar</button>
+                                    </td>
+                                </tr>
+                            `);
+                        });
+                    },
+                    error: function(error) {
+                        alert('Error al obtener las notas');
+                    }
+                });
+            };
+
+            fetchNotas();
+
+            $('#notaForm').on('submit', function(e) {
+                e.preventDefault();
+
+                const notaData = {
+                    estudiante_nombre: $('#estudiante_nombre').val(),
+                    curso_nombre: $('#curso_nombre').val(),
+                    nota: $('#nota').val(),
+                    fecha_evaluacion: $('#fecha_evaluacion').val(),
+                    descripcion: $('#descripcion').val()
+                };
+
+                if (editingId) {
+                    // Update existing nota
+                    $.ajax({
+                        url: `/InfoNotas/notas/${editingId}`,
+                        type: 'PUT',
+                        contentType: 'application/json',
+                        data: JSON.stringify(notaData),
+                        success: function(response) {
+                            alert('Nota actualizada con éxito');
+                            fetchNotas();
+                            resetForm();
+                        },
+                        error: function(error) {
+                            alert('Error al actualizar la nota');
+                        }
+                    });
+                } else {
+                    // Create new nota
+                    $.ajax({
+                        url: '/InfoNotas/notas',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(notaData),
+                        success: function(response) {
+                            alert('Nota creada con éxito');
+                            fetchNotas();
+                            resetForm();
+                        },
+                        error: function(error) {
+                            alert('Error al crear la nota');
+                        }
+                    });
+                }
+            });
+
+            window.deleteNota = (id) => {
+                $.ajax({
+                    url: `/InfoNotas/notas/${id}`,
+                    type: 'DELETE',
+                    success: function(response) {
+                        alert('Nota eliminada con éxito');
+                        fetchNotas();
+                    },
+                    error: function(error) {
+                        alert('Error al eliminar la nota');
+                    }
+                });
+            };
+
+            window.editNota = (id) => {
+                $.ajax({
+                    url: `/InfoNotas/notas/${id}`,
+                    type: 'GET',
+                    success: function(response) {
+                        $('#nota_id').val(response.id);
+                        $('#estudiante_nombre').val(response.estudiante_id);
+                        $('#curso_nombre').val(response.curso_id);
+                        $('#nota').val(response.nota);
+                        $('#fecha_evaluacion').val(response.fecha_evaluacion);
+                        $('#descripcion').val(response.descripcion);
+
+                        editingId = id; // Set the ID for editing
+                    },
+                    error: function(error) {
+                        alert('Error al obtener la nota para edición');
+                    }
+                });
+            };
+
+            function resetForm() {
+                $('#notaForm')[0].reset();
+                editingId = null;
+            }
+        });
+    </script>
+</body>
+</html>

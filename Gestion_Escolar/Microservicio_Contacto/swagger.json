@@ -1,0 +1,36 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "Microservicio Contacto",
+      "description": "API para manejar el servicio de contacto",
+      "version": "1.0.0"
+    },
+    "paths": {
+      "/contacto": {
+        "post": {
+          "summary": "Almacenar información de contacto",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "email": { "type": "string" },
+                  "phoneNumber": { "type": "string" },
+                  "message": { "type": "string" }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "201": { "description": "Contacto almacenado correctamente" },
+            "500": { "description": "Error al almacenar el contacto" }
+          }
+        }
+      }
+    }
+  }
+  

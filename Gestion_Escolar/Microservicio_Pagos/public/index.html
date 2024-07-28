@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Pagos</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="mt-5">Gestión de Pagos</h1>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="create-tab" data-toggle="tab" href="#create" role="tab">Registrar Pago</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="search-tab" data-toggle="tab" href="#search" role="tab">Buscar Pago</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="update-tab" data-toggle="tab" href="#update" role="tab">Modificar Pago</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="delete-tab" data-toggle="tab" href="#delete" role="tab">Eliminar Pago</a>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="create" role="tabpanel">
+        <form id="pagoForm">
+          <div class="form-group">
+            <label for="nombre">Nombre del Estudiante</label>
+            <input type="text" class="form-control" id="nombre" required>
+          </div>
+          <div class="form-group">
+            <label for="apellido">Apellido del Estudiante</label>
+            <input type="text" class="form-control" id="apellido" required>
+          </div>
+          <div class="form-group">
+            <label for="monto">Monto</label>
+            <input type="number" class="form-control" id="monto" required>
+          </div>
+          <div class="form-group">
+            <label for="fecha_pago">Fecha de Pago</label>
+            <input type="date" class="form-control" id="fecha_pago" required>
+          </div>
+          <div class="form-group">
+            <label for="concepto">Concepto</label>
+            <input type="text" class="form-control" id="concepto" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Registrar Pago</button>
+        </form>
+      </div>
+      <div class="tab-pane fade" id="search" role="tabpanel">
+        <form id="searchForm">
+          <div class="form-group">
+            <label for="searchId">ID del Pago</label>
+            <input type="number" class="form-control" id="searchId" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Buscar Pago</button>
+        </form>
+        <div id="searchResult" class="mt-3"></div>
+      </div>
+      <div class="tab-pane fade" id="update" role="tabpanel">
+        <form id="updateForm">
+          <div class="form-group">
+            <label for="updateId">ID del Pago</label>
+            <input type="number" class="form-control" id="updateId" required>
+          </div>
+          <div class="form-group">
+            <label for="updateMonto">Monto</label>
+            <input type="number" class="form-control" id="updateMonto" required>
+          </div>
+          <div class="form-group">
+            <label for="updateFechaPago">Fecha de Pago</label>
+            <input type="date" class="form-control" id="updateFechaPago" required>
+          </div>
+          <div class="form-group">
+            <label for="updateConcepto">Concepto</label>
+            <input type="text" class="form-control" id="updateConcepto" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Modificar Pago</button>
+        </form>
+      </div>
+      <div class="tab-pane fade" id="delete" role="tabpanel">
+        <form id="deleteForm">
+          <div class="form-group">
+            <label for="deleteId">ID del Pago</label>
+            <input type="number" class="form-control" id="deleteId" required>
+          </div>
+          <button type="submit" class="btn btn-danger">Eliminar Pago</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    $('#pagoForm').on('submit', function(e) {
+      e.preventDefault();
+      const data = {
+        nombre: $('#nombre').val(),
+        apellido: $('#apellido').val(),
+        monto: $('#monto').val(),
+        fecha_pago: $('#fecha_pago').val(),
+        concepto: $('#concepto').val()
+      };
+      $.ajax({
+        type: 'POST',
+        url: '/api/pagos',
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        success: function(response) {
+          alert('Pago registrado con éxito');
+        },
+        error: function(error) {
+          alert('Error al registrar el pago');
+        }
+      });
+    });
+
+    $('#searchForm').on('submit', function(e) {
+      e.preventDefault();
+      const id = $('#searchId').val();
+      $.ajax({
+        type: 'GET',
+        url: `/api/pagos/${id}`,
+        success: function(response) {
+          $('#searchResult').html(`
+            <p>ID: ${response.id}</p>
+            <p>Estudiante ID: ${response.estudiante_id}</p>
+            <p>Monto: ${response.monto}</p>
+            <p>Fecha de Pago: ${response.fecha_pago}</p>
+            <p>Concepto: ${response.concepto}</p>
+          `);
+        },
+        error: function(error) {
+          alert('Error al buscar el pago');
+        }
+      });
+    });
+
+    $('#updateForm').on('submit', function(e) {
+      e.preventDefault();
+      const id = $('#updateId').val();
+      const data = {
+        monto: $('#updateMonto').val(),
+        fecha_pago: $('#updateFechaPago').val(),
+        concepto: $('#updateConcepto').val()
+      };
+      $.ajax({
+        type: 'PUT',
+        url: `/api/pagos/${id}`,
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        success: function(response) {
+          alert('Pago actualizado con éxito');
+        },
+        error: function(error) {
+          alert('Error al actualizar el pago');
+        }
+      });
+    });
+
+    $('#deleteForm').on('submit', function(e) {
+      e.preventDefault();
+      const id = $('#deleteId').val();
+      $.ajax({
+        type: 'DELETE',
+        url: `/api/pagos/${id}`,
+        success: function(response) {
+          alert('Pago eliminado con éxito');
+        },
+        error: function(error) {
+          alert('Error al eliminar el pago');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

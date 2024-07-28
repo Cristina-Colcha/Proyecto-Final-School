@@ -1,0 +1,319 @@
+services:
+  # Autenticación y Autorización
+  auth-service:
+    image: autenticacion:latest
+    ports: 
+      - "3001:3001"
+    environment:
+      - DATABASE_URL=mysql://auth_user:13051999@auth-db:3306/auth_db
+    depends_on:
+      - auth-db
+
+  # Gestión de Estudiantes
+  estudiantes-service:
+    image: estudiantes:latest
+    ports:
+      - "3002:3002"
+    environment:
+      - DATABASE_URL=mysql://estudiantes_user:estudiantes_password@estudiantes-db:3306/estudiantes_db
+    depends_on:
+      - estudiantes-db
+
+  # Gestión de Profesores
+  profesores-service:
+    image: profesores:latest
+    ports:
+      - "3003:3003"
+    environment:
+      - DATABASE_URL=mysql://profesores_user:profesores_password@profesores-db:3306/profesores_db
+    depends_on:
+      - profesores-db
+
+  # Gestión de Cursos
+  cursos-service:
+    image: cursos:latest
+    ports:
+      - "3004:3004"
+    environment:
+      - DATABASE_URL=mysql://cursos_user:cursos_password@cursos-db:3306/cursos_db
+    depends_on:
+      - cursos-db
+
+  # Gestión de Inscripciones
+  inscripciones-service:
+    image: inscripciones:latest
+    ports:
+      - "3005:3005"
+    environment:
+      - DATABASE_URL=mysql://inscripciones_user:inscripciones_password@inscripciones-db:3306/inscripciones_db
+    depends_on:
+      - inscripciones-db
+
+  # Gestión de Notas
+  notas-service:
+    image: notas:latest
+    ports:
+      - "3006:3006"
+    environment:
+      - DATABASE_URL=mysql://notas_user:notas_password@notas-db:3306/notas_db
+    depends_on:
+      - notas-db
+
+  # Gestión de Horarios
+  horarios-service:
+    image: horarios:latest
+    ports:
+      - "3007:3007"
+    environment:
+      - DATABASE_URL=mysql://horarios_user:horarios_password@horarios-db:3306/horarios_db
+    depends_on:
+      - horarios-db
+
+  # Gestión de Asistencia
+  asistencia-service:
+    image: asistencia:latest
+    ports:
+      - "3008:3008"
+    environment:
+      - DATABASE_URL=mysql://asistencia_user:asistencia_password@asistencia-db:3306/asistencia_db
+    depends_on:
+      - asistencia-db
+
+  # Gestión de Pagos
+  pagos-service:
+    image: pagos:latest
+    ports:
+      - "3009:3009"
+    environment:
+      - DATABASE_URL=mysql://pagos_user:pagos_password@pagos-db:3306/pagos_db
+    depends_on:
+      - pagos-db
+
+  # Calculadora (MongoDB)
+  calculadora-service:
+    image: calculadora:latest
+    ports:
+      - "3010:3010"
+    environment:
+      - MONGO_URL=mongodb://calculadora_user:calculadora_password@calculadora-mongo:27017/calculadora_db
+    depends_on:
+      - calculadora-mongo
+
+  # Contacto (MongoDB)
+  contacto-service:
+    image: contacto:latest
+    ports:
+      - "3011:3011"
+    environment:
+      - MONGO_URL=mongodb://contacto_user:contacto_password@contacto-mongo:27017/contacto_db
+    depends_on:
+      - contacto-mongo
+
+  # Conversión (MongoDB)
+  conversion-service:
+    image: conversion:latest
+    ports:
+      - "3012:3012"
+    environment:
+      - MONGO_URL=mongodb://conversion_user:conversion_password@conversion-mongo:27017/conversion-db
+    depends_on:
+      - conversion-mongo
+
+  # Conversión de Temperatura
+  conversion-temperatura-service:
+    image: conversion-temperatura:latest
+    ports:
+      - "3013:3013"
+
+  # Libros
+  libros-service:
+    image: libros:latest
+    ports:
+      - "3014:3014"
+
+  # Medidas de Conversión
+  medidas-conversion-service:
+    image: medidas-conversion:latest
+    ports:
+      - "3015:3015"
+
+  # Notas Flotante
+  notas-flotante-service:
+    image: notas-flotante:latest
+    ports:
+      - "3016:3016"
+
+  # Noticias
+  noticias-service:
+    image: noticias:latest
+    ports:
+      - "3017:3017"
+
+  # Clima
+  clima-service:
+    image: clima:latest
+    ports:
+      - "3018:3018"
+
+  # COVID
+  covid-service:
+    image: covid:latest
+    ports:
+      - "3019:3019"
+
+  # NASA
+  nasa-service:
+    image: nasa:latest
+    ports:
+      - "3020:3020"
+
+  # Bases de Datos MySQL
+  auth-db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: auth_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 13051999
+    ports:
+      - "3301:3306"
+    volumes:
+      - auth-db-data:/var/lib/mysql
+
+  estudiantes-db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: estudiantes_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 13051999
+    ports:
+      - "3302:3306"
+    volumes:
+      - estudiantes-db-data:/var/lib/mysql
+
+  profesores-db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: profesores_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 13051999
+    ports:
+      - "3303:3306"
+    volumes:
+      - profesores-db-data:/var/lib/mysql
+
+  cursos-db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: cursos_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 13051999
+    ports:
+      - "3304:3306"
+    volumes:
+      - cursos-db-data:/var/lib/mysql
+
+  inscripciones-db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: inscripciones_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 13051999
+    ports:
+      - "3305:3306"
+    volumes:
+      - inscripciones-db-data:/var/lib/mysql
+
+  notas-db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: notas_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 13051999
+    ports:
+      - "3306:3306"
+    volumes:
+      - notas-db-data:/var/lib/mysql
+
+  horarios-db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: horarios_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 13051999
+    ports:
+      - "3307:3306"
+    volumes:
+      - horarios-db-data:/var/lib/mysql
+
+  asistencia-db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: asistencia_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 13051999
+    ports:
+      - "3308:3306"
+    volumes:
+      - asistencia-db-data:/var/lib/mysql
+
+  pagos-db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: pagos_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 13051999
+    ports:
+      - "3309:3306"
+    volumes:
+      - pagos-db-data:/var/lib/mysql
+
+  # Bases de Datos MongoDB
+  calculadora-mongo:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_DATABASE: calculadora_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - calculadora-mongo-data:/data/db
+
+  contacto-mongo:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_DATABASE: contacto_db
+    ports:
+      - "27018:27017"
+    volumes:
+      - contacto-mongo-data:/data/db
+
+  conversion-mongo:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_DATABASE: conversion-db
+    ports:
+      - "27019:27017"
+    volumes:
+      - conversion-mongo-data:/data/db
+
+volumes:
+  auth-db-data:
+  estudiantes-db-data:
+  profesores-db-data:
+  cursos-db-data:
+  inscripciones-db-data:
+  notas-db-data:
+  horarios-db-data:
+  asistencia-db-data:
+  pagos-db-data:
+  calculadora-mongo-data:
+  contacto-mongo-data:
+  conversion-mongo-data:

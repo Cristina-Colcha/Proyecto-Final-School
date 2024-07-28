@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Roles</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Gestión de Roles</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID de Usuario</th>
+                    <th scope="col">Nombre de Usuario</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Rol</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="usersTableBody">
+                <!-- Aquí se insertarán dinámicamente las filas de la tabla -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal para asignar o editar rol a usuario -->
+    <div class="modal fade" id="assignRoleModal" tabindex="-1" role="dialog" aria-labelledby="assignRoleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="assignRoleModalLabel">Asignar Rol a Usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="assignRoleForm">
+                        <div class="form-group">
+                            <label for="userIdSelect">Seleccionar Usuario:</label>
+                            <select class="form-control" id="userIdSelect" name="userId">
+                                <!-- Opciones de usuarios se insertarán dinámicamente aquí -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="roleIdSelect">Seleccionar Nuevo Rol:</label>
+                            <select class="form-control" id="roleIdSelect" name="roleId">
+                                <!-- Opciones de roles se insertarán dinámicamente aquí -->
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="assignUserRole()">Asignar Rol</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS y jQuery (opcional para Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // JavaScript para cargar datos dinámicamente en la tabla
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/api/users-with-roles')
+                .then(response => response.json())
+                .then(users => {
+                    const usersTableBody = document.getElementById('usersTableBody');
+
+                    users.forEach(user => {
+                        const role = user.role_name || 'Sin rol';
+                        const row = `
+                            <tr>
+                                <td>${user.id}</td>
+                                <td>${user.username}</td>
+                                <td>${user.email}</td>
+                                <td>${role}</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#assignRoleModal" onclick="prepareAssignModal(${user.id})">
+                                        Editar Rol
+                                    </button>
+                                    <button type="button" class="btn btn-danger" onclick="removeUserRole(${user.id})">
+                                        Eliminar Rol
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                        usersTableBody.innerHTML += row;
+                    });
+                })
+                .catch(error => console.error('Error al obtener usuarios:', error));
+        });
+
+        // Función para preparar el modal de asignación de rol
+        function prepareAssignModal(userId) {
+            // Obtener el listado de usuarios y roles disponibles
+            fetch('/api/users')
+                .then(response => response.json())
+                .then(users => {
+                    const userIdSelect = document.getElementById('userIdSelect');
+                    const roleIdSelect = document.getElementById('roleIdSelect');
+
+                    // Limpiar opciones anteriores
+                    userIdSelect.innerHTML = '';
+                    roleIdSelect.innerHTML = '';
+
+                    // Llenar opciones de usuarios
+                    users.forEach(user => {
+                        const option = document.createElement('option');
+                        option.value = user.id;
+                        option.textContent = user.username;
+                        userIdSelect.appendChild(option);
+                    });
+
+                    // Llenar opciones de roles
+                    fetch('/api/roles')
+                        .then(response => response.json())
+                        .then(roles => {
+                            roles.forEach(role => {
+                                const option = document.createElement('option');
+                                option.value = role.role_id;
+                                option.textContent = role.role_name;
+                                roleIdSelect.appendChild(option);
+                            });
+                        })
+                        .catch(error => console.error('Error al obtener roles:', error));
+
+                    // Seleccionar el usuario actual en el select de usuarios
+                    userIdSelect.value = userId;
+
+                    // Mostrar el modal
+                    $('#assignRoleModal').modal('show');
+                })
+                .catch(error => console.error('Error al obtener usuarios:', error));
+        }
+
+        // Función para enviar la solicitud de asignación de rol a usuario
+        function assignUserRole() {
+            const userId = document.getElementById('userIdSelect').value;
+            const roleId = document.getElementById('roleIdSelect').value;
+
+            // Enviar la solicitud de asignación de rol
+            fetch(`/api/roles/assign/${userId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ roleId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message);
+                $('#assignRoleModal').modal('hide'); // Ocultar el modal después de asignar rol
+                // Actualizar la tabla de roles después de asignar rol
+                document.getElementById('usersTableBody').innerHTML = '';
+                // Volver a cargar la tabla
+                loadUsersWithRoles();
+            })
+            .catch(error => console.error('Error al asignar rol a usuario:', error));
+        }
+
+        // Función para eliminar rol de usuario
+        function removeUserRole(userId) {
+            fetch(`/api/roles/remove/${userId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message);
+                // Actualizar la tabla de roles después de eliminar rol
+                document.getElementById('usersTableBody').innerHTML = '';
+                // Volver a cargar la tabla
+                loadUsersWithRoles();
+            })
+            .catch(error => console.error('Error al eliminar rol de usuario:', error));
+        }
+
+        // Función para cargar usuarios con roles
+        function loadUsersWithRoles() {
+            fetch('/api/users-with-roles')
+                .then(response => response.json())
+                .then(users => {
+                    const usersTableBody = document.getElementById('usersTableBody');
+                    users.forEach(user => {
+                        const role = user.role_name || 'Sin rol';
+                        const row = `
+                            <tr>
+                                <td>${user.id}</td>
+                                <td>${user.username}</td>
+                                <td>${user.email}</td>
+                                <td>${role}</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#assignRoleModal" onclick="prepareAssignModal(${user.id})">
+                                        Editar Rol
+                                    </button>
+                                    <button type="button" class="btn btn-danger" onclick="removeUserRole(${user.id})">
+                                        Eliminar Rol
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                        usersTableBody.innerHTML += row;
+                    });
+                })
+                .catch(error => console.error('Error al obtener usuarios:', error));
+        }
+    </script>
+</body>
+</html>

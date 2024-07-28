@@ -1,0 +1,76 @@
+openapi: 3.0.0
+info:
+  title: Gestión de Horarios API
+  description: API para gestionar horarios
+  version: 1.0.0
+paths:
+  /horarios:
+    get:
+      summary: Obtener todos los horarios
+      responses:
+        '200':
+          description: Lista de horarios
+    post:
+      summary: Crear un nuevo horario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                curso_name:
+                  type: string
+                profesor_nombre:
+                  type: string
+                profesor_apellido:
+                  type: string
+                dia_semana:
+                  type: string
+                hora_inicio:
+                  type: string
+                  format: time
+                hora_fin:
+                  type: string
+                  format: time
+      responses:
+        '201':
+          description: Horario creado
+  /horarios/{id}:
+    put:
+      summary: Actualizar un horario
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dia_semana:
+                  type: string
+                hora_inicio:
+                  type: string
+                  format: time
+                hora_fin:
+                  type: string
+                  format: time
+      responses:
+        '200':
+          description: Horario actualizado
+    delete:
+      summary: Eliminar un horario
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Horario eliminado

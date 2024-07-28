@@ -1,0 +1,60 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "News API",
+      "version": "1.0.0",
+      "description": "Microservicio para obtener noticias utilizando NewsAPI"
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "schemes": ["http"],
+    "paths": {
+      "/news": {
+        "get": {
+          "summary": "Obtiene las noticias más recientes o busca noticias específicas",
+          "parameters": [
+            {
+              "name": "query",
+              "in": "query",
+              "description": "Término de búsqueda para las noticias",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Lista de noticias",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Article"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Article": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" }
+            }
+          },
+          "author": { "type": "string" },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "url": { "type": "string" },
+          "urlToImage": { "type": "string" },
+          "publishedAt": { "type": "string" },
+          "content": { "type": "string" }
+        }
+      }
+    }
+  }
+  

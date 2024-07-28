@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imagen Astronómica del Día</title>
+</head>
+<body>
+    <h1>Imagen Astronómica del Día</h1>
+    <div id="apod-container">
+        <h2 id="apod-title"></h2>
+        <p id="apod-date"></p>
+        <p id="apod-explanation"></p>
+        <img id="apod-image" src="" alt="Imagen Astronómica del Día">
+    </div>
+
+    <script>
+        // Make a GET request to the server to obtain the astronomical image of the day.
+        fetch('http://localhost:3002/apod')
+            .then(response => response.json())
+            .then(data => {
+                // Update HTML elements with the received data
+                document.getElementById('apod-title').textContent = data.title;
+                document.getElementById('apod-date').textContent = `Fecha: ${data.date}`;
+                document.getElementById('apod-explanation').textContent = data.explanation;
+                document.getElementById('apod-image').src = data.imageUrl;
+            })
+            .catch(error => {
+                console.error('Error al obtener la imagen astronómica del día:', error);
+            });
+    </script>
+</body>
+</html>

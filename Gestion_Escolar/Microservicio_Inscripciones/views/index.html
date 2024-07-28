@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Inscripciones</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 1200px;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .card-body {
+            background-color: #f8f9fa;
+        }
+        .btn-custom {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">Gestión de Inscripciones</h1>
+
+        <!-- Listado de Inscripciones -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Inscripciones</h2>
+            </div>
+            <div class="card-body">
+                <ul id="inscripciones-list" class="list-group">
+                    <!-- Las inscripciones se cargarán aquí mediante JavaScript -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- Botones para acciones -->
+        <div class="text-center">
+            <button class="btn btn-custom" data-toggle="modal" data-target="#create-modal">Crear Inscripción</button>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#update-modal">Actualizar Inscripción</button>
+            <button class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Eliminar Inscripción</button>
+        </div>
+    </div>
+
+    <!-- Modal para Crear Inscripción -->
+    <div class="modal fade" id="create-modal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createModalLabel">Crear Inscripción</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="create-form">
+                        <div class="form-group">
+                            <label for="estudiante_id">ID del Estudiante</label>
+                            <input type="number" class="form-control" id="estudiante_id" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="curso_id">ID del Curso</label>
+                            <input type="number" class="form-control" id="curso_id" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fecha_inscripcion">Fecha de Inscripción</label>
+                            <input type="date" class="form-control" id="fecha_inscripcion" required>
+                        </div>
+                        <button type="submit" class="btn btn-custom">Crear Inscripción</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Actualizar Inscripción -->
+    <div class="modal fade" id="update-modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateModalLabel">Actualizar Inscripción</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="update-form">
+                        <div class="form-group">
+                            <label for="update_id">ID de Inscripción</label>
+                            <input type="number" class="form-control" id="update_id" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="update_estudiante_id">ID del Estudiante</label>
+                            <input type="number" class="form-control" id="update_estudiante_id" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="update_curso_id">ID del Curso</label>
+                            <input type="number" class="form-control" id="update_curso_id" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="update_fecha_inscripcion">Fecha de Inscripción</label>
+                            <input type="date" class="form-control" id="update_fecha_inscripcion" required>
+                        </div>
+                        <button type="submit" class="btn btn-custom">Actualizar Inscripción</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Eliminar Inscripción -->
+    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Eliminar Inscripción</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="delete-form">
+                        <div class="form-group">
+                            <label for="delete_id">ID de Inscripción</label>
+                            <input type="number" class="form-control" id="delete_id" required>
+                        </div>
+                        <button type="submit" class="btn btn-danger">Eliminar Inscripción</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        async function loadInscripciones() {
+            const response = await fetch('/api/inscripciones');
+            const inscripciones = await response.json();
+            const list = document.getElementById('inscripciones-list');
+            list.innerHTML = '';
+            inscripciones.forEach(inscripcion => {
+                const item = document.createElement('li');
+                item.className = 'list-group-item';
+                item.innerHTML = `
+                    ID: ${inscripcion.id}, Estudiante ID: ${inscripcion.estudiante_id}, Curso ID: ${inscripcion.curso_id}, Fecha de Inscripción: ${inscripcion.fecha_inscripcion}
+                `;
+                list.appendChild(item);
+            });
+        }
+    
+        document.getElementById('create-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const estudiante_id = document.getElementById('estudiante_id').value;
+            const curso_id = document.getElementById('curso_id').value;
+            const fecha_inscripcion = document.getElementById('fecha_inscripcion').value;
+    
+            const response = await fetch('/api/inscripciones', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    estudiante_id,
+                    curso_id,
+                    fecha_inscripcion
+                })
+            });
+    
+            const result = await response.json();
+            if (response.ok) {
+                alert('Inscripción creada exitosamente');
+                loadInscripciones();
+            } else {
+                alert(result.error || 'Error al crear inscripción');
+            }
+        });
+    
+        document.getElementById('update-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('update_id').value;
+            const estudiante_id = document.getElementById('update_estudiante_id').value;
+            const curso_id = document.getElementById('update_curso_id').value;
+            const fecha_inscripcion = document.getElementById('update_fecha_inscripcion').value;
+    
+            const response = await fetch(`/api/inscripciones/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    estudiante_id,
+                    curso_id,
+                    fecha_inscripcion
+                })
+            });
+    
+            const result = await response.json();
+            if (response.ok) {
+                alert('Inscripción actualizada exitosamente');
+                loadInscripciones();
+            } else {
+                alert(result.error || 'Error al actualizar inscripción');
+            }
+        });
+    
+        document.getElementById('delete-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('delete_id').value;
+    
+            const response = await fetch(`/api/inscripciones/${id}`, {
+                method: 'DELETE'
+            });
+    
+            const result = await response.json();
+            if (response.ok) {
+                alert('Inscripción eliminada exitosamente');
+                loadInscripciones();
+            } else {
+                alert(result.error || 'Error al eliminar inscripción');
+            }
+        });
+    
+        loadInscripciones();
+    </script>
+    
+</body>
+</html>

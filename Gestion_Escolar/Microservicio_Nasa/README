@@ -1,0 +1,42 @@
+# NASA APOD API
+
+This project is an API to obtain the astronomical picture of the day (APOD) from NASA, documented using Swagger.
+
+## Structure
+nasa-apod-api/
+├── index.js # Application entry point.
+├─── swaggerConfig.js # # Swagger configuration for documentation.
+├─── package.json
+├─── package-lock.json
+└─── .env # File for environment variables (e.g. NASA_API_KEY).
+
+
+## Installation.
+
+1. **Clone the repository:**
+   ````bash
+   git clone https://tu-repositorio.git
+   cd nasa-apod-api
+
+Make sure you have a valid NASA API key to access the APOD API. You can obtain a key by registering at the NASA API Portal.
+
+Create an .env file in the root directory of the project and add your API key:
+
+NASA_API_KEY=YOUR_AP_KEY
+
+## Execution
+
+Once built, we will be able to access our microservice via
+
+http://localhost:3000
+
+
+## API documentation:
+
+The API documentation is available at Swagger UI. Access http://localhost:3000/api-docs in your web browser to explore and test the API paths.
+
+## Contributors
+Edwin Proaño Cristina Colcha 
+
+## License
+This project is licensed under the MIT License.

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News API</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      padding-top: 50px;
+      background-color: #f8f9fa;
+    }
+    .navbar {
+      margin-bottom: 30px;
+    }
+    .card {
+      margin-bottom: 20px;
+    }
+    .card-title {
+      color: #007bff;
+    }
+    .card-subtitle {
+      color: #6c757d;
+    }
+    .card-link {
+      color: #007bff;
+    }
+    #news-container {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <a class="navbar-brand" href="#">Noticias</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/api-docs">Swagger Documentation</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <h1 class="text-center">Noticias</h1>
+        <form id="search-form" class="form-inline my-4 justify-content-center">
+          <input type="text" id="search-query" class="form-control mr-2" placeholder="Enter search term">
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <div id="news-container" class="row"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('search-form').addEventListener('submit', async function(event) {
+      event.preventDefault();
+      const query = document.getElementById('search-query').value;
+      const response = await fetch(`/api/news?query=${query}`);
+      const articles = await response.json();
+      const newsContainer = document.getElementById('news-container');
+      newsContainer.innerHTML = '';
+      if (articles.length) {
+        articles.forEach(article => {
+          const articleElement = document.createElement('div');
+          articleElement.className = 'col-md-12';
+          articleElement.innerHTML = `
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">${article.title}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">${article.author || 'Unknown author'}</h6>
+                <p class="card-text">${article.description || 'No description available.'}</p>
+                <a href="${article.url}" class="card-link" target="_blank">Read more</a>
+              </div>
+            </div>
+          `;
+          newsContainer.appendChild(articleElement);
+        });
+      } else {
+        newsContainer.innerHTML = '<p class="text-center">No articles found.</p>';
+      }
+    });
+  </script>
+</body>
+</html>
+

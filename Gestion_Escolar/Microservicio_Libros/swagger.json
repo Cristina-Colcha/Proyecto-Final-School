@@ -1,0 +1,67 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API de Wolne Lektury",
+    "description": "Microservicio para buscar libros en la API de Wolne Lektury en español"
+  },
+  "host": "localhost:3000",
+  "basePath": "/api",
+  "schemes": ["http"],
+  "paths": {
+    "/books/search": {
+      "get": {
+        "summary": "Buscar libros",
+        "description": "Buscar libros por título en español utilizando la API de Wolne Lektury",
+        "parameters": [
+          {
+            "name": "titulo",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Título del libro en español"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de libros",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "titulo": {
+                    "type": "string",
+                    "description": "Título del libro"
+                  },
+                  "autor": {
+                    "type": "string",
+                    "description": "Autor del libro"
+                  },
+                  "generos": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Géneros del libro"
+                  },
+                  "url": {
+                    "type": "string",
+                    "description": "URL del libro en Wolne Lektury"
+                  },
+                  "cover": {
+                    "type": "string",
+                    "description": "URL de la portada del libro"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    }
+  }
+}

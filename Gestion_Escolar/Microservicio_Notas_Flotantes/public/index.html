@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notas Flotantes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .note {
+            width: 200px;
+            padding: 10px;
+            border: 1px solid black;
+            margin: 10px;
+            position: absolute;
+            background-color: yellow;
+        }
+        #noteContainer {
+            position: relative;
+            height: 80vh;
+            border: 1px solid #ccc;
+            background-color: #ffffff;
+            margin-top: 20px;
+        }
+        .form-container {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4 text-center">Notas Flotantes</h1>
+        <div class="form-container">
+            <form id="noteForm" class="form-inline justify-content-center">
+                <input type="text" id="title" class="form-control mr-2" placeholder="Título" required>
+                <textarea id="content" class="form-control mr-2" placeholder="Contenido" required></textarea>
+                <select id="color" class="form-control mr-2">
+                    <option value="yellow" selected>Amarillo</option>
+                    <option value="lightblue">Azul</option>
+                    <option value="lightgreen">Verde</option>
+                    <option value="lightpink">Rosa</option>
+                    <option value="lightgray">Gris</option>
+                </select>
+                <button type="submit" class="btn btn-primary">Agregar Nota</button>
+            </form>
+        </div>
+        <div id="noteContainer"></div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+        const noteContainer = document.getElementById('noteContainer');
+        const noteForm = document.getElementById('noteForm');
+        const titleInput = document.getElementById('title');
+        const contentInput = document.getElementById('content');
+        const colorInput = document.getElementById('color');
+
+        noteForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const note = {
+                id: Date.now(),
+                title: titleInput.value,
+                content: contentInput.value,
+                color: colorInput.value,
+            };
+            fetch('/notes', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(note),
+            })
+            .then(response => response.json())
+            .then(() => {
+                addNoteToDOM(note);
+                titleInput.value = '';
+                contentInput.value = '';
+                colorInput.value = 'yellow';
+            });
+        });
+
+        function addNoteToDOM(note) {
+            const noteElement = document.createElement('div');
+            noteElement.className = 'note';
+            noteElement.style.left = `${Math.random() * (window.innerWidth - 200)}px`;
+            noteElement.style.top = `${Math.random() * (window.innerHeight - 100)}px`;
+            noteElement.style.backgroundColor = note.color;
+            noteElement.innerHTML = `
+                <h3>${note.title}</h3>
+                <p>${note.content}</p>
+                <button class="btn btn-danger btn-sm" onclick="deleteNote(${note.id}, this)">Eliminar</button>
+            `;
+            noteContainer.appendChild(noteElement);
+            $(noteElement).draggable().resizable();
+        }
+
+        function deleteNote(id, button) {
+            fetch(`/notes/${id}`, { method: 'DELETE' })
+                .then(() => {
+                    const noteElement = button.parentElement;
+                    noteContainer.removeChild(noteElement);
+                });
+        }
+
+        fetch('/notes')
+            .then(response => response.json())
+            .then(notes => {
+                notes.forEach(note => addNoteToDOM(note));
+            });
+    </script>
+</body>
+</html>
+
+
+

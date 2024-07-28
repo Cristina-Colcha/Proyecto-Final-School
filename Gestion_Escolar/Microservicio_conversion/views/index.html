@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversion Microservice</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Conversion Microservice</h1>
+        <form id="conversionForm">
+            <div class="form-group">
+                <label for="number">Number</label>
+                <input type="number" step="any" class="form-control" id="number" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Convert</button>
+        </form>
+        <div id="result" class="mt-3"></div>
+        <h2 class="mt-5">Conversion History</h2>
+        <div id="history" class="mt-3"></div>
+        <h2 class="mt-5">Conversion Analysis</h2>
+        <div id="analysis" class="mt-3"></div>
+    </div>
+
+    <script>
+        document.getElementById('conversionForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const number = document.getElementById('number').value;
+            const response = await fetch('/convert/toInteger', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ number: parseFloat(number) })
+            });
+            const result = await response.json();
+            document.getElementById('result').innerText = `Original: ${result.original}, Converted: ${result.converted}`;
+            loadHistory();
+            loadAnalysis();
+        });
+
+        async function loadHistory() {
+            const response = await fetch('/conversions');
+            const history = await response.json();
+            const historyDiv = document.getElementById('history');
+            historyDiv.innerHTML = '';
+            history.forEach(conversion => {
+                const div = document.createElement('div');
+                div.innerText = `Original: ${conversion.original}, Converted: ${conversion.converted}, Type: ${conversion.type}, Date: ${new Date(conversion.date).toLocaleString()}`;
+                historyDiv.appendChild(div);
+            });
+        }
+
+        async function loadAnalysis() {
+            const response = await fetch('/analysis');
+            const analysis = await response.json();
+            const analysisDiv = document.getElementById('analysis');
+            analysisDiv.innerHTML = `
+                <p>Total Conversions: ${analysis.totalConversions}</p>
+                <p>Decimal to Integer: ${analysis.decimalToInt}</p>
+            `;
+        }
+
+        loadHistory();
+        loadAnalysis();
+    </script>
+</body>
+</html>

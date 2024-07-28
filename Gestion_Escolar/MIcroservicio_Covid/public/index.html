@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos COVID-19</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Datos COVID-19 por Estado</h1>
+        </header>
+        <main>
+            <form id="stateForm">
+                <label for="state">Ingrese el código del estado (ej. CA):</label>
+                <input type="text" id="state" name="state" placeholder="CA" required>
+                <button type="submit">Obtener Datos</button>
+            </form>
+            <div id="data" class="data-container"></div>
+        </main>
+        <footer>
+            <p>© 2024 API de Datos COVID-19</p>
+        </footer>
+    </div>
+    <script>
+        document.getElementById('stateForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const state = document.getElementById('state').value.trim().toUpperCase();
+            if (state.length !== 2) {
+                alert('Ingrese un código de estado válido de dos letras.');
+                return;
+            }
+            try {
+                const response = await fetch(`/covid-data/${state}`);
+                const data = await response.json();
+                document.getElementById('data').innerHTML = formatData(data);
+            } catch (error) {
+                document.getElementById('data').innerHTML = `
+                    <p class="error">Error al obtener los datos. Por favor, inténtelo de nuevo más tarde.</p>
+                `;
+            }
+        });
+
+        function formatData(data) {
+            return `
+                <h2>Datos para ${data.state}</h2>
+                <ul>
+                    <li><strong>Fecha:</strong> ${data.date}</li>
+                    <li><strong>Casos positivos:</strong> ${data.positive}</li>
+                    <li><strong>Muertes:</strong> ${data.death}</li>
+                    <li><strong>Hospitalizados:</strong> ${data.hospitalizedCurrently}</li>
+                    <li><strong>Recuperados:</strong> ${data.recovered}</li>
+                    <li><strong>Casos negativos:</strong> ${data.negative}</li>
+                    <li><strong>Pruebas realizadas:</strong> ${data.totalTestResults}</li>
+                </ul>
+            `;
+        }
+    </script>
+</body>
+</html>

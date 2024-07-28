@@ -1,0 +1,185 @@
+openapi: 3.0.0
+info:
+  title: Gestión de Profesores API
+  description: API para gestionar información de profesores
+  version: 1.0.0
+paths:
+  /InfoProfesores:
+    get:
+      summary: Obtener todos los profesores
+      responses:
+        '200':
+          description: Lista de profesores
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nombre:
+                      type: string
+                    apellido:
+                      type: string
+                    especialidad:
+                      type: string
+                    email:
+                      type: string
+                    telefono:
+                      type: string
+                    created_at:
+                      type: string
+                      format: date-time
+                    updated_at:
+                      type: string
+                      format: date-time
+    post:
+      summary: Crear un nuevo profesor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                apellido:
+                  type: string
+                especialidad:
+                  type: string
+                email:
+                  type: string
+                telefono:
+                  type: string
+      responses:
+        '201':
+          description: Profesor creado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nombre:
+                    type: string
+                  apellido:
+                    type: string
+                  especialidad:
+                    type: string
+                  email:
+                    type: string
+                  telefono:
+                    type: string
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
+  /InfoProfesores/{id}:
+    get:
+      summary: Obtener un profesor por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Información del profesor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nombre:
+                    type: string
+                  apellido:
+                    type: string
+                  especialidad:
+                    type: string
+                  email:
+                    type: string
+                  telefono:
+                    type: string
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
+        '404':
+          description: Profesor no encontrado
+    put:
+      summary: Actualizar un profesor por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                apellido:
+                  type: string
+                especialidad:
+                  type: string
+                email:
+                  type: string
+                telefono:
+                  type: string
+      responses:
+        '200':
+          description: Profesor actualizado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nombre:
+                    type: string
+                  apellido:
+                    type: string
+                  especialidad:
+                    type: string
+                  email:
+                    type: string
+                  telefono:
+                    type: string
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
+        '404':
+          description: Profesor no encontrado
+    delete:
+      summary: Eliminar un profesor por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Profesor eliminado
+        '404':
+          description: Profesor no encontrado

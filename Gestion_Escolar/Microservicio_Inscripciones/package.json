@@ -1,0 +1,20 @@
+{
+  "name": "gestion-inscripciones",
+  "version": "1.0.0",
+  "description": "Microservicio para la gestión de inscripciones",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "mqtt": "^4.3.7",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.10.3",
+    "swagger-ui-express": "^4.6.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.1.0"
+  }
+}

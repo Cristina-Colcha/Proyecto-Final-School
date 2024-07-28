@@ -1,0 +1,191 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Gestión de Inscripciones API",
+      "version": "1.0.0",
+      "description": "API para gestionar inscripciones en cursos."
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3003",
+        "description": "Servidor local"
+      }
+    ],
+    "paths": {
+      "/api/inscripciones": {
+        "get": {
+          "summary": "Obtener todas las inscripciones",
+          "responses": {
+            "200": {
+              "description": "Lista de inscripciones",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Inscripcion"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Crear una nueva inscripción",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Inscripcion"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Inscripción creada",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "description": "ID de la inscripción creada"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/inscripciones/{id}": {
+        "get": {
+          "summary": "Obtener una inscripción por ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Inscripción encontrada",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Inscripcion"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Inscripción no encontrada"
+            }
+          }
+        },
+        "put": {
+          "summary": "Actualizar una inscripción",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Inscripcion"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Inscripción actualizada"
+            },
+            "404": {
+              "description": "Inscripción no encontrada"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Eliminar una inscripción",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Inscripción eliminada"
+            },
+            "404": {
+              "description": "Inscripción no encontrada"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Inscripcion": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "description": "ID de la inscripción"
+            },
+            "estudiante_id": {
+              "type": "integer",
+              "description": "ID del estudiante"
+            },
+            "curso_id": {
+              "type": "integer",
+              "description": "ID del curso"
+            },
+            "fecha_inscripcion": {
+              "type": "string",
+              "format": "date",
+              "description": "Fecha de inscripción"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Fecha de creación"
+            },
+            "updated_at": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Fecha de actualización"
+            }
+          },
+          "required": [
+            "estudiante_id",
+            "curso_id",
+            "fecha_inscripcion"
+          ]
+        }
+      }
+    }
+  }
+  

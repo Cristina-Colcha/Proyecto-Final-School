@@ -1,0 +1,65 @@
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Curso:
+ *       type: object
+ *       required:
+ *         - nombre
+ *         - descripcion
+ *         - creditos
+ *       properties:
+ *         id:
+ *           type: integer
+ *           description: ID del curso
+ *         nombre:
+ *           type: string
+ *           description: Nombre del curso
+ *         descripcion:
+ *           type: string
+ *           description: Descripción del curso
+ *         creditos:
+ *           type: integer
+ *           description: Créditos del curso
+ *         created_at:
+ *           type: string
+ *           format: date-time
+ *           description: Fecha de creación
+ *         updated_at:
+ *           type: string
+ *           format: date-time
+ *           description: Fecha de actualización
+ *       example:
+ *         id: 1
+ *         nombre: Matemáticas
+ *         descripcion: Curso de Matemáticas avanzadas
+ *         creditos: 3
+ *         created_at: 2024-07-18T00:00:00Z
+ *         updated_at: 2024-07-18T00:00:00Z
+ */
+
+/**
+ * @swagger
+ * tags:
+ *   name: Cursos
+ *   description: API para gestionar cursos
+ */
+
+/**
+ * @swagger
+ * /:
+ *   get:
+ *     summary: Obtener todos los cursos
+ *     tags: [Cursos]
+ *     responses:
+ *       200:
+ *         description: Lista de cursos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Curso'
+ *       500:
+ *         description: Error del servidor
+ */

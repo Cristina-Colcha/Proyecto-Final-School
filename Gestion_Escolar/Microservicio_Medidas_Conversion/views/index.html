@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversión de Medidas</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            background-image: url('https://img.freepik.com/foto-gratis/pizarra-inscrita-formulas-calculos-cientificos_1150-19413.jpg?t=st=1721682172~exp=1721685772~hmac=5ef05cd42d794f79a6f8c75564b6ad1036f934feffb7717e16c1fd3b3196ff98&w=996'); /* Reemplaza con la URL de tu imagen */
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.9); /* Fondo blanco con opacidad para mejorar la legibilidad */
+        }
+        .card-header {
+            background-color: #b7d921;
+            color: white;
+        }
+        .result {
+            background-color: #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        .form-control {
+            border-radius: 5px;
+        }
+        .btn-primary {
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h2>Conversión de Medidas</h2>
+            </div>
+            <div class="card-body">
+                <form id="conversionForm">
+                    <div class="form-group">
+                        <label for="fromUnit">Unidad de Origen</label>
+                        <select class="form-control" id="fromUnit">
+                            <option value="m">Metros (m)</option>
+                            <option value="km">Kilómetros (km)</option>
+                            <option value="cm">Centímetros (cm)</option>
+                            <option value="mm">Milímetros (mm)</option>
+                            <option value="in">Pulgadas (in)</option>
+                            <option value="ft">Pies (ft)</option>
+                            <option value="yd">Yardas (yd)</option>
+                            <option value="mi">Millas (mi)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="toUnit">Unidad de Destino</label>
+                        <select class="form-control" id="toUnit">
+                            <option value="m">Metros (m)</option>
+                            <option value="km">Kilómetros (km)</option>
+                            <option value="cm">Centímetros (cm)</option>
+                            <option value="mm">Milímetros (mm)</option>
+                            <option value="in">Pulgadas (in)</option>
+                            <option value="ft">Pies (ft)</option>
+                            <option value="yd">Yardas (yd)</option>
+                            <option value="mi">Millas (mi)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="value">Valor</label>
+                        <input type="number" class="form-control" id="value" placeholder="e.g., 1000" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Convertir</button>
+                </form>
+                <div id="resultado" class="result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('conversionForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const fromUnit = document.getElementById('fromUnit').value;
+            const toUnit = document.getElementById('toUnit').value;
+            const value = document.getElementById('value').value;
+
+            fetch(`/api/conversion/${fromUnit}/${toUnit}/${value}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('resultado').innerHTML = `
+                        <h4>Resultado</h4>
+                        <p><strong>Unidad de Origen:</strong> ${data.fromUnit}</p>
+                        <p><strong>Unidad de Destino:</strong> ${data.toUnit}</p>
+                        <p><strong>Valor:</strong> ${data.value}</p>
+                        <p><strong>Resultado:</strong> ${data.result}</p>
+                    `;
+                })
+                .catch(error => {
+                    document.getElementById('resultado').innerHTML = `<p><strong>Error:</strong> ${error.message}</p>`;
+                });
+        });
+    </script>
+</body>
+</html>

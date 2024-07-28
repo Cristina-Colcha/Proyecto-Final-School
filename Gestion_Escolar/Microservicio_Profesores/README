@@ -1,0 +1,97 @@
+# Microservicio de Gestión de Profesores
+
+## Descripción
+Este proyecto implementa un microservicio para la gestión de profesores, desarrollado con Node.js, Express, y MySQL. Incluye funcionalidad completa de CRUD (Crear, Leer, Actualizar, Eliminar) para los registros de profesores y usa MQTT para publicar mensajes cuando se realizan cambios en los registros. La documentación de la API se realiza con Swagger.
+
+## Estructura del Proyecto
+Microservicio_Profesores/
+├── src/
+│ ├── config/
+│ │ └── db.js
+│ ├── controllers/
+│ │ └── profesoresController.js
+│ ├── routes/
+│ │ └── profesores.js
+│ ├── views/
+│ │ └── index.html
+│ ├── app.js
+│ └── swagger.yaml
+├── package.json
+└── README.md
+
+## Instalación
+
+### Prerrequisitos
+- Node.js (v22.2.0)
+- MySQL
+- MQTT Broker (por ejemplo, Mosquitto)
+
+### Configuración de la Base de Datos
+Crea la base de datos y la tabla de profesores ejecutando las siguientes consultas SQL en MySQL:
+```sql
+CREATE DATABASE profesores_db;
+
+USE profesores_db;
+
+CREATE TABLE profesores (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    apellido VARCHAR(255) NOT NULL,
+    especialidad VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    telefono VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+### Clona el repositorio:
+    git clone 
+Instala las dependencias:
+
+    npm install
+Ejecución
+    npm start
+Endpoints
+    Obtener todos los profesores
+    URL: /InfoProfesores
+    Método: GET
+    Respuesta exitosa: 200 OK
+    Crear un nuevo profesor
+    URL: /InfoProfesores
+    Método: POST
+    Cuerpo de la solicitud:
+        {
+         "nombre": "John",
+        "apellido": "Doe",
+        "especialidad": "Matemáticas",
+        "email": "john.doe@gmail.com",
+        "telefono": "130519956789"
+        }
+    Respuesta exitosa: 201 Created
+    Obtener un profesor por ID
+    URL: /InfoProfesores/:id
+    Método: GET
+        Respuesta exitosa: 200 OK
+    Actualizar un profesor
+    URL: /InfoProfesores/:id
+    Método: PUT
+    Cuerpo de la solicitud:
+         {
+        "nombre": "John",
+        "apellido": "Doe",
+        "especialidad": "Física",
+        "email": "john.doe@example.com",
+        "telefono": "987654321"
+        }
+
+    Respuesta exitosa: 200 OK
+        Eliminar un profesor
+        URL: /InfoProfesores/:id
+        Método: DELETE
+        Respuesta exitosa: 204 No Content
+# Contribuciones
+    Cristina Colcha
+    Daniel Proaño
+Licencia
+    Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo LICENSE para más detalles.
+
+

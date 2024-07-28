@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="bg-dark border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading text-white">Administración</div>
+      <div class="list-group list-group-flush">
+        <a href="#autenticacion" class="list-group-item list-group-item-action bg-dark text-white">Autenticación</a>
+        <a href="#estudiantes" class="list-group-item list-group-item-action bg-dark text-white">Estudiantes</a>
+        <a href="#profesores" class="list-group-item list-group-item-action bg-dark text-white">Profesores</a>
+        <a href="#cursos" class="list-group-item list-group-item-action bg-dark text-white">Cursos</a>
+        <a href="#inscripciones" class="list-group-item list-group-item-action bg-dark text-white">Inscripciones</a>
+        <a href="#notas" class="list-group-item list-group-item-action bg-dark text-white">Notas</a>
+        <a href="#horarios" class="list-group-item list-group-item-action bg-dark text-white">Horarios</a>
+        <a href="#asistencia" class="list-group-item list-group-item-action bg-dark text-white">Asistencia</a>
+        <a href="#pagos" class="list-group-item list-group-item-action bg-dark text-white">Pagos</a>
+        <a href="#calculadora" class="list-group-item list-group-item-action bg-dark text-white">Calculadora</a>
+        <a href="#contacto" class="list-group-item list-group-item-action bg-dark text-white">Contacto</a>
+        <a href="#conversion" class="list-group-item list-group-item-action bg-dark text-white">Conversión</a>
+        <a href="#conversion-temperatura" class="list-group-item list-group-item-action bg-dark text-white">Conversión de Temperatura</a>
+        <a href="#libros" class="list-group-item list-group-item-action bg-dark text-white">Libros</a>
+        <a href="#medidas" class="list-group-item list-group-item-action bg-dark text-white">Conversión de Medidas</a>
+        <a href="#notas-flotantes" class="list-group-item list-group-item-action bg-dark text-white">Notas Flotantes</a>
+        <a href="#noticias" class="list-group-item list-group-item-action bg-dark text-white">Noticias</a>
+        <a href="#clima" class="list-group-item list-group-item-action bg-dark text-white">Clima</a>
+        <a href="#covid" class="list-group-item list-group-item-action bg-dark text-white">Covid</a>
+        <a href="#nasa" class="list-group-item list-group-item-action bg-dark text-white">NASA</a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+      </nav>
+      <div class="container-fluid">
+        <h1 class="mt-4">Panel de Administración</h1>
+        <div class="row mt-4">
+          <div class="col-md-12">
+            <div class="row">
+              <!-- Autenticación y Autorización -->
+              <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Autenticación</h5>
+                    <p class="card-text">Gestión de usuarios, roles y permisos.</p>
+                    <a href="/microservice1" class="btn btn-primary">Acceder</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Gestión de Estudiantes -->
+              <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Estudiantes</h5>
+                    <p class="card-text">Administración de la información de los estudiantes.</p>
+                    <a href="/microservice2" class="btn btn-primary">Acceder</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Gestión de Profesores -->
+              <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Profesores</h5>
+                    <p class="card-text">Administración de la información de los profesores.</p>
+                    <a href="/microservice3" class="btn btn-primary">Acceder</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Gestión de Cursos -->
+              <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Cursos</h5>
+                    <p class="card-text">Administración de los cursos y su información.</p>
+                    <a href="/microservice4" class="btn btn-primary">Acceder</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Gestión de Inscripciones -->
+              <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Inscripciones</h5>
+                    <p class="card-text">Administración de las inscripciones a los cursos.</p>
+                    <a href="/microservice5" class="btn btn-primary">Acceder</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Gestión de Notas -->
+              <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Notas</h5>
+                    <p class="card-text">Administración de las notas de los estudiantes.</p>
+                    <a href="/microservice6" class="btn btn-primary">Acceder</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Gestión de Horarios -->
+              <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Horarios</h5>
+                    <p class="card-text">Administración de los horarios de los cursos.</p>
+                    <a href="/microservice7" class="btn btn-primary">Acceder</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Gestión de Asistencia -->
+              <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Asistencia</h5>
+                    <p class="card-text">Administración de la asistencia de los estudiantes.</p>
+                    <a href="/microservice8" class="btn btn-primary">Acceder</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Gestión de Pagos -->
+              <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Pagos</h5>
+                    <p class="card-text">Administración de los pagos de los estudiantes.</p>
+                    <a href="/microservice9" class="btn btn-primary">Acceder</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Calculadora -->
+              <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Calculadora</h5>
+                    <p class="card-text">Herramienta de cálculo.</p>
+                    <a href="/microservice10" class="btn btn-primary">Acceder</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Contacto -->
+              <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Contacto</h5>
+                    <p class="card-text">Gestión de la información de contacto.</p>
+                    <a href="/microservice11" class="btn btn-primary">Acceder</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Conversión -->
+              <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Conversión</h5>
+                    <p class="card-text">Herramientas de conversión.</p>
+                    <a href="/microservice12" class="btn btn-primary">Acceder</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Conversión de Temperatura -->
+              <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Conversión de Temperatura</h5>
+                    <p class="card-text">Herramientas de conversión de temperatura.</p>
+                    <a href="/microservice13" class="btn btn-primary">Acceder</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Libros -->
+              <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Libros</h5>
+                    <p class="card-text">Gestión de libros y bibliotecas.</p>
+                    <a href="/microservice14" class="btn btn-primary">Acceder</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Conversión de Medidas -->
+              <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Conversión de Medidas</h5>
+                    <p class="card-text">Herramientas de conversión de medidas.</p>
+                    <a href="/microservice15" class="btn btn-primary">Acceder</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Notas Flotantes -->
+              <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Notas Flotantes</h5>
+                    <p class="card-text">Gestión de notas flotantes.</p>
+                    <a href="/microservice16" class="btn btn-primary">Acceder</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Noticias -->
+              <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Noticias</h5>
+                    <p class="card-text">Gestión de noticias y eventos.</p>
+                    <a href="/microservice17" class="btn btn-primary">Acceder</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Clima -->
+              <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Clima</h5>
+                    <p class="card-text">Gestión de información climática.</p>
+                    <a href="/microservice18" class="btn btn-primary">Acceder</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Covid -->
+              <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Covid</h5>
+                    <p class="card-text">Gestión de información sobre Covid-19.</p>
+                    <a href="/microservice19" class="btn btn-primary">Acceder</a>
+                  </div>
+                </div>
+              </div>
+              <!-- NASA -->
+              <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">NASA</h5>
+                    <p class="card-text">Gestión de información de la NASA.</p>
+                    <a href="/microservice20" class="btn btn-primary">Acceder</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+</body>
+</html>

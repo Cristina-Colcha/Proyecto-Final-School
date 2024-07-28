@@ -1,0 +1,110 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "Notas Flotantes API",
+      "version": "1.0.0"
+    },
+    "basePath": "/",
+    "paths": {
+      "/notes": {
+        "get": {
+          "summary": "Obtener todas las notas",
+          "responses": {
+            "200": {
+              "description": "Lista de notas",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Note"
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Crear una nueva nota",
+          "parameters": [
+            {
+              "name": "note",
+              "in": "body",
+              "description": "Nota a crear",
+              "schema": {
+                "$ref": "#/definitions/Note"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Nota creada"
+            }
+          }
+        }
+      },
+      "/notes/{id}": {
+        "put": {
+          "summary": "Actualizar una nota",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            },
+            {
+              "name": "note",
+              "in": "body",
+              "description": "Datos de la nota a actualizar",
+              "schema": {
+                "$ref": "#/definitions/Note"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Nota actualizada"
+            },
+            "404": {
+              "description": "Nota no encontrada"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Eliminar una nota",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Nota eliminada"
+            },
+            "404": {
+              "description": "Nota no encontrada"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Note": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          }
+        },
+        "required": ["id", "title", "content"]
+      }
+    }
+  }
+  

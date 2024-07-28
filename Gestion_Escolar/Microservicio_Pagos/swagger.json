@@ -1,0 +1,123 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Gestión de Pagos API",
+      "description": "API para la gestión de pagos de estudiantes"
+    },
+    "host": "localhost:3007",
+    "basePath": "/api/pagos",
+    "schemes": ["http"],
+    "paths": {
+      "/{id}": {
+        "get": {
+          "summary": "Obtener pago por ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Pago encontrado"
+            },
+            "404": {
+              "description": "Pago no encontrado"
+            }
+          }
+        },
+        "put": {
+          "summary": "Actualizar pago",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Pago"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Pago actualizado"
+            },
+            "404": {
+              "description": "Pago no encontrado"
+            }
+          }
+        }
+      },
+      "/": {
+        "post": {
+          "summary": "Crear nuevo pago",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/NewPago"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Pago creado"
+            },
+            "404": {
+              "description": "Estudiante no encontrado"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Pago": {
+        "type": "object",
+        "properties": {
+          "monto": {
+            "type": "number"
+          },
+          "fecha_pago": {
+            "type": "string",
+            "format": "date"
+          },
+          "concepto": {
+            "type": "string"
+          }
+        }
+      },
+      "NewPago": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string"
+          },
+          "apellido": {
+            "type": "string"
+          },
+          "monto": {
+            "type": "number"
+          },
+          "fecha_pago": {
+            "type": "string",
+            "format": "date"
+          },
+          "concepto": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+  

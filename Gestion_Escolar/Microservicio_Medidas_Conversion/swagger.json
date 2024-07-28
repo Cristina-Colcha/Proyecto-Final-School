@@ -1,0 +1,71 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Microservicio de Conversión de Medidas",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/conversion/{fromUnit}/{toUnit}/{value}": {
+            "get": {
+                "summary": "Convierte medidas entre dos unidades",
+                "parameters": [
+                    {
+                        "name": "fromUnit",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": ["m", "km", "cm", "mm", "in", "ft", "yd", "mi"]
+                        }
+                    },
+                    {
+                        "name": "toUnit",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": ["m", "km", "cm", "mm", "in", "ft", "yd", "mi"]
+                        }
+                    },
+                    {
+                        "name": "value",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Conversión exitosa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "fromUnit": {
+                                            "type": "string"
+                                        },
+                                        "toUnit": {
+                                            "type": "string"
+                                        },
+                                        "value": {
+                                            "type": "number"
+                                        },
+                                        "result": {
+                                            "type": "number"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error de conversión"
+                    }
+                }
+            }
+        }
+    }
+}

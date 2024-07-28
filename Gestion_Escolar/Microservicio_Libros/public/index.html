@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Books Search</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<style>
+    body {
+        background-image: url('https://img.freepik.com/foto-gratis/corte-papel-ninos-leer-libro-arbol_1232-2115.jpg?t=st=1721328481~exp=1721332081~hmac=f4a056360822a18520f674d94c05ec77435af7c060babb407ce795f8c55c8c6c&w=996');
+        background-size: cover; /* Ajusta la imagen para cubrir todo el fondo */
+        background-position: center; /* Centra la imagen */
+        color: rgb(0, 0, 0); /* Color del texto para que se vea bien sobre la imagen */
+        font-family: Arial, sans-serif; /* Tipo de fuente para el texto */
+        padding: 20px; /* Espacio alrededor del contenido */
+    }
+    
+    .contenido {
+        max-width: 800px; /* Ancho máximo del contenido */
+        margin: 0 auto; /* Centra el contenido horizontalmente */
+        background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente para que el texto sea legible */
+        padding: 20px; /* Espacio interno del contenido */
+        border-radius: 10px; /* Bordes redondeados para el contenedor */
+    }
+  </style>
+<body>
+  <div class="container mt-5">
+    <h1>BUSCA TU LIBRO</h1>
+    <form id="searchForm">
+      <div class="form-group">
+        <label for="searchInput">Busca un libro de tu interes:</label>
+        <input type="text" class="form-control" id="searchInput" name="query" required>
+      </div>
+      <button type="submit" class="btn btn-primary">buscar</button>
+    </form>
+    <div id="results" class="mt-4"></div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const query = document.getElementById('searchInput').value;
+      fetch(`/books?query=${encodeURIComponent(query)}`)
+        .then(response => response.json())
+        .then(data => {
+          const resultsDiv = document.getElementById('results');
+          resultsDiv.innerHTML = '';
+          data.items.forEach(item => {
+            const title = item.volumeInfo.title;
+            const authors = item.volumeInfo.authors ? item.volumeInfo.authors.join(', ') : 'Unknown';
+            const description = item.volumeInfo.description ? item.volumeInfo.description : 'No description available.';
+            const html = `
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">${title}</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">${authors}</h6>
+                  <p class="card-text">${description}</p>
+                </div>
+              </div>
+            `;
+            resultsDiv.innerHTML += html;
+          });
+        })
+        .catch(error => console.error('Error:', error));
+    });
+  </script>
+</body>
+</html>

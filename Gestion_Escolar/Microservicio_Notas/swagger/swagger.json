@@ -1,0 +1,16 @@
+{
+    "swaggerDefinition": {
+        "openapi": "3.0.0",
+        "info": {
+            "title": "Gestión de Notas API",
+            "version": "1.0.0",
+            "description": "API para la gestión de notas"
+        },
+        "servers": [
+            {
+                "url": "http://localhost:3002/InfoNotas"
+            }
+        ]
+    },
+    "apis": ["./routes/*.js"]
+}
