@@ -35,11 +35,11 @@ jobs:
         run: |
           aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${{ env.ECR_REPOSITORY_URI }}
 
-      - name: Build and push microservicio_autenticacion_roles
+      - name: Build and push Microservicio_Autenticacion_Roles
         env:
-          SERVICE_NAME: microservicio_autenticacion_roles
+          SERVICE_NAME: Microservicio_Autenticacion_Roles
         run: |
-          docker build -t $SERVICE_NAME ./microservicio_autenticacion_roles
+          docker build -t $SERVICE_NAME ./Microservicio_Autenticacion_Roles
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
