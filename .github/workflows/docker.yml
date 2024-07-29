@@ -131,11 +131,11 @@ jobs:
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
-      - name: Build and push Microservicio_conversion_temperatura
+      - name: Build and push Microservicio_conversion_Temperatura
         env:
           SERVICE_NAME: microservicio_conversion_temperatura
         run: |
-          docker build -t $SERVICE_NAME ./Gestion_Escolar/Microservicio_conversion_temperatura
+          docker build -t $SERVICE_NAME ./Gestion_Escolar/Microservicio_conversion_Temperatura
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
