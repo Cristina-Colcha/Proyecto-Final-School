@@ -39,11 +39,11 @@ jobs:
         env:
           SERVICE_NAME: Microservicio_Autenticación_Roles
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_Autenticación_y_Autorización
+          docker build -t $SERVICE_NAME ./Microservicio_Autenticación_Roles
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
-      - name: Build and push Microservicio_Gestión_de_Estudiantes
+      - name: Build and push Microservicio_Estudiantes
         env:
           SERVICE_NAME: Microservicio_Estudiantes
         run: |
@@ -55,11 +55,11 @@ jobs:
         env:
           SERVICE_NAME: Microservicio_Profesores
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_Gestión_de_Profesores
+          docker build -t $SERVICE_NAME ./Microservicio_Profesores
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
-      - name: Build and push Microservicio_Gestión_de_Cursos
+      - name: Build and push Microservicio_Cursos
         env:
           SERVICE_NAME: Microservicio_Cursos
         run: |
