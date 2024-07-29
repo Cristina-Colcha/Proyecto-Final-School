@@ -43,11 +43,11 @@ jobs:
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
-      - name: Build and push Microservicio_Estudiantes
+      - name: Build and push Microservicio_Estudiante
         env:
-          SERVICE_NAME: microservicio_estudiantes
+          SERVICE_NAME: microservicio_estudiante
         run: |
-          docker build -t $SERVICE_NAME ./Gestion_Escolar/Microservicio_Estudiantes
+          docker build -t $SERVICE_NAME ./Gestion_Escolar/Microservicio_Estudiante
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
