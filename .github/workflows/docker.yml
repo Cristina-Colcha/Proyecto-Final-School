@@ -45,145 +45,145 @@ jobs:
 
       - name: Build and push Microservicio_Estudiantes
         env:
-          SERVICE_NAME: Microservicio_Estudiantes
+          SERVICE_NAME: microservicio_estudiantes
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_Estudiantes
+          docker build -t $SERVICE_NAME ./Gestion_Escolar/Microservicio_Estudiantes
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
       - name: Build and push Microservicio_Profesores
         env:
-          SERVICE_NAME: Microservicio_Profesores
+          SERVICE_NAME: microservicio_profesores
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_Profesores
+          docker build -t $SERVICE_NAME ./Gestion_Escolar/Microservicio_Profesores
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
       - name: Build and push Microservicio_Cursos
         env:
-          SERVICE_NAME: Microservicio_Cursos
+          SERVICE_NAME: microservicio_cursos
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_Cursos
+          docker build -t $SERVICE_NAME ./Gestion_Escolar/Microservicio_Cursos
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
       - name: Build and push Microservicio_Inscripciones
         env:
-          SERVICE_NAME: Microservicio_Inscripciones
+          SERVICE_NAME: microservicio_inscripciones
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_Inscripciones
+          docker build -t $SERVICE_NAME ./Gestion_Escolar/Microservicio_Inscripciones
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
       - name: Build and push Microservicio_Notas
         env:
-          SERVICE_NAME: Microservicio_Notas
+          SERVICE_NAME: microservicio_notas
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_Notas
+          docker build -t $SERVICE_NAME ./Gestion_Escolar/Microservicio_Notas
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
       - name: Build and push Microservicio_Horarios
         env:
-          SERVICE_NAME: Microservicio_Horarios
+          SERVICE_NAME: microservicio_horarios
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_Horarios
+          docker build -t $SERVICE_NAME ./Gestion_Escolar/Microservicio_Horarios
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
       - name: Build and push Microservicio_Asistencia
         env:
-          SERVICE_NAME: Microservicio_Asistencia
+          SERVICE_NAME: microservicio_asistencia
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_Asistencia
+          docker build -t $SERVICE_NAME ./Gestion_Escolar/Microservicio_Asistencia
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
       - name: Build and push Microservicio_Pagos
         env:
-          SERVICE_NAME: Microservicio_Pagos
+          SERVICE_NAME: microservicio_pagos
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_Pagos
+          docker build -t $SERVICE_NAME ./Gestion_Escolar/Microservicio_Pagos
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
       - name: Build and push Microservicio_Calculadora
         env:
-          SERVICE_NAME: Microservicio_Calculadora
+          SERVICE_NAME: microservicio_calculadora
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_Calculadora
+          docker build -t $SERVICE_NAME ./Gestion_Escolar/Microservicio_Calculadora
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
       - name: Build and push Microservicio_Contacto
         env:
-          SERVICE_NAME: Microservicio_Contacto
+          SERVICE_NAME: microservicio_contacto
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_Contacto
+          docker build -t $SERVICE_NAME ./Gestion_Escolar/Microservicio_Contacto
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
       - name: Build and push Microservicio_conversion
         env:
-          SERVICE_NAME: Microservicio_conversion
+          SERVICE_NAME: microservicio_conversion
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_conversion
+          docker build -t $SERVICE_NAME ./Gestion_Escolar/Microservicio_conversion
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
       - name: Build and push Microservicio_conversion_temperatura
         env:
-          SERVICE_NAME: Microservicio_conversion_temperatura
+          SERVICE_NAME: microservicio_conversion_temperatura
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_conversion_temperatura
+          docker build -t $SERVICE_NAME ./Gestion_Escolar/Microservicio_conversion_temperatura
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
       - name: Build and push Microservicio_libros
         env:
-          SERVICE_NAME: Microservicio_libros
+          SERVICE_NAME: microservicio_libros
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_Libros
+          docker build -t $SERVICE_NAME ./Gestion_Escolar/Microservicio_Libros
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
       - name: Build and push Microservicio_Medidas_Conversion
         env:
-          SERVICE_NAME: Microservicio_Medidas_Conversion
+          SERVICE_NAME: microservicio_medidas_conversion
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_Medidas_Conversion
+          docker build -t $SERVICE_NAME ./Gestion_Escolar/Microservicio_Medidas_Conversion
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
       - name: Build and push Microservicio_Notas_Flotantes
         env:
-          SERVICE_NAME: Microservicio_Notas_Flotantes
+          SERVICE_NAME: microservicio_notas_flotantes
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_Notas_Flotantes
+          docker build -t $SERVICE_NAME ./Gestion_Escolar/Microservicio_Notas_Flotantes
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
       - name: Build and push Microservicio_Noticias
         env:
-          SERVICE_NAME: Microservicio_Noticias
+          SERVICE_NAME: microservicio_noticias
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_Noticias
+          docker build -t $SERVICE_NAME ./Gestion_Escolar/Microservicio_Noticias
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
       - name: Build and push Microservicio_Clima
         env:
-          SERVICE_NAME: Microservicio_clima
+          SERVICE_NAME: microservicio_clima
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_Clima
+          docker build -t $SERVICE_NAME ./Gestion_Escolar/Microservicio_Clima
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
       - name: Build and push Nasa
         env:
-          SERVICE_NAME: Nasa
+          SERVICE_NAME: nasa
         run: |
-          docker build -t $SERVICE_NAME ./Nasa
+          docker build -t $SERVICE_NAME ./Gestion_Escolar/Nasa
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
