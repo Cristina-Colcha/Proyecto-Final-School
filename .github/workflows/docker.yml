@@ -192,6 +192,6 @@ jobs:
         env:
           SERVICE_NAME: front
         run: |
-          docker build -t $SERVICE_NAME ./front
+          docker build -t $SERVICE_NAME ./Front
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
