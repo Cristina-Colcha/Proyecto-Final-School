@@ -11,7 +11,7 @@ jobs:
 
     env:
       AWS_REGION: us-east-2
-      ECR_REPOSITORY_URI: 009160042972.dkr.ecr.us-east-2.amazonaws.com
+      ECR_REPOSITORY_URI: 009160042972.dkr.ecr.us-east-1.amazonaws.com/grupo1gestion
 
     steps:
       - name: Checkout code
@@ -77,33 +77,33 @@ jobs:
 
       - name: Build and push Microservicio_Notas
         env:
-          SERVICE_NAME: Microservicio_Gestión_de_Notas
+          SERVICE_NAME: Microservicio_Notas
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_Gestión_de_Notas
+          docker build -t $SERVICE_NAME ./Microservicio_Notas
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
-      - name: Build and push Microservicio_Gestión_de_Horarios
+      - name: Build and push Microservicio_Horarios
         env:
-          SERVICE_NAME: Microservicio_Gestión_de_Horarios
+          SERVICE_NAME: Microservicio_Horarios
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_Gestión_de_Horarios
+          docker build -t $SERVICE_NAME ./Microservicio_Horarios
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
-      - name: Build and push Microservicio_Gestión_de_Asistencia
+      - name: Build and push Microservicio_Asistencia
         env:
-          SERVICE_NAME: Microservicio_Gestión_de_Asistencia
+          SERVICE_NAME: Microservicio_Asistencia
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_Gestión_de_Asistencia
+          docker build -t $SERVICE_NAME ./Microservicio_Asistencia
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
-      - name: Build and push Microservicio_Gestión_de_Pagos
+      - name: Build and push Microservicio_Pagos
         env:
-          SERVICE_NAME: Microservicio_Gestión_de_Pagos
+          SERVICE_NAME: Microservicio_Pagos
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_Gestión_de_Pagos
+          docker build -t $SERVICE_NAME ./Microservicio_Pagos
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
@@ -143,62 +143,55 @@ jobs:
         env:
           SERVICE_NAME: Microservicio_libros
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_libros
+          docker build -t $SERVICE_NAME ./Microservicio_Libros
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
-      - name: Build and push Microservicio_medidas_conversion
+      - name: Build and push Microservicio_Medidas_Conversion
         env:
-          SERVICE_NAME: Microservicio_medidas_conversion
+          SERVICE_NAME: Microservicio_Medidas_Conversion
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_medidas_conversion
+          docker build -t $SERVICE_NAME ./Microservicio_Medidas_Conversion
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
-      - name: Build and push Microservicio_notas_flotante
+      - name: Build and push Microservicio_Notas_Flotantes
         env:
-          SERVICE_NAME: Microservicio_notas_flotante
+          SERVICE_NAME: Microservicio_Notas_Flotantes
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_notas_flotante
+          docker build -t $SERVICE_NAME ./Microservicio_Notas_Flotantes
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
-      - name: Build and push Microservicio_noticias
+      - name: Build and push Microservicio_Noticias
         env:
-          SERVICE_NAME: Microservicio_noticias
+          SERVICE_NAME: Microservicio_Noticias
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_noticias
+          docker build -t $SERVICE_NAME ./Microservicio_Noticias
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
-      - name: Build and push Microservicio_clima
+      - name: Build and push Microservicio_Clima
         env:
           SERVICE_NAME: Microservicio_clima
         run: |
-          docker build -t $SERVICE_NAME ./Microservicio_clima
+          docker build -t $SERVICE_NAME ./Microservicio_Clima
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
-      - name: Build and push nasa
+      - name: Build and push Nasa
         env:
-          SERVICE_NAME: nasa
+          SERVICE_NAME: Nasa
         run: |
-          docker build -t $SERVICE_NAME ./nasa
+          docker build -t $SERVICE_NAME ./Nasa
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
-      - name: Build and push api-simulador
-        env:
-          SERVICE_NAME: api-simulador
-        run: |
-          docker build -t $SERVICE_NAME ./api-simulador
-          docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
-          docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
 
-      - name: Build and push servicio-usuarios
+      - name: Build and push Front
         env:
-          SERVICE_NAME: servicio-usuarios
+          SERVICE_NAME: front
         run: |
-          docker build -t $SERVICE_NAME ./servicio-usuarios
+          docker build -t $SERVICE_NAME ./front
           docker tag $SERVICE_NAME:latest ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
           docker push ${{ env.ECR_REPOSITORY_URI }}/$SERVICE_NAME:latest
